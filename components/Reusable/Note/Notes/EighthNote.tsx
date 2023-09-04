@@ -1,0 +1,20 @@
+import { FunctionComponent } from "react";
+
+const EigthNote: FunctionComponent = () => {
+  return (
+    <svg
+      width="21"
+      height="30"
+      viewBox="0 0 21 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10.3171 0V17.5833C9.33374 17.0167 8.20041 16.6667 6.98374 16.6667C3.30041 16.6667 0.317078 19.65 0.317078 23.3333C0.317078 27.0167 3.30041 30 6.98374 30C10.6671 30 13.6504 27.0167 13.6504 23.3333V6.66667H20.3171V0H10.3171Z"
+        fill="black"
+      />
+    </svg>
+  );
+};
+
+export default EigthNote;

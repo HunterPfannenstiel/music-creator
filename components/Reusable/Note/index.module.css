@@ -1,0 +1,8 @@
+.note_container {
+    display: inline-flex;  
+    padding: 1rem;
+}
+
+.selected {
+    border: 1px solid green;
+}
