@@ -32,5 +32,27 @@
   ],
   "exclude": [
     "node_modules"
+  ],
+  "paths": {
+    "@_types/*": [
+      "types/*"
+    ],
+    "@_hooks/*": [
+      "components/hooks/*"
+    ],
+    "@_providers/*": [
+      "components/providers/*"
+    ],
+    "@_ui/*": ["components/ui/*"],
+    "@_utils/*": [
+      "utils/*"
+    ],
+  },
+  "baseUrl": "./",
+  "plugins": [
+    {
+      "name": "next"
+    }
   ]
 }
+

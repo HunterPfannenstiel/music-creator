@@ -5,28 +5,28 @@ import WholeNote from "../Notes/WholeNote";
 import EigthNote from "../Notes/EighthNote";
 import SixteenthNote from "../Notes/SixteenthNote";
 import Note from "..";
+import HalfNote from "../Notes/HalfNote";
+import { MeasureNote } from "../../../../types/music";
 
 interface NoteSelectionProps {
   smallestUnit: number;
-  onNoteClick: (unitValue: number) => void;
   selectedVal?: number;
 }
 
 const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
   smallestUnit,
-  onNoteClick,
   selectedVal,
 }) => {
   return (
     <div>
       <ul>
         {notes.map((note) => {
-          if (note.unitValue <= smallestUnit) {
+          if (note.details.val <= smallestUnit) {
             const Component = note.component;
             return (
               <Note
-                onClick={onNoteClick.bind(null, note.unitValue)}
-                isSelected={selectedVal === note.unitValue}
+                noteDetails={note.details}
+                isSelected={selectedVal === note.details.val}
               >
                 <Component />
               </Note>
@@ -41,9 +41,14 @@ const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
 
 export default NoteSelection;
 
-const notes = [
-  { unitValue: 1, component: WholeNote },
-  { unitValue: 4, component: QuarterNote },
-  { unitValue: 8, component: EigthNote },
-  { unitValue: 16, component: SixteenthNote },
+const notes: { component: FunctionComponent; details: MeasureNote }[] = [
+  { component: WholeNote, details: { val: 16, name: "whole" } },
+  { component: HalfNote, details: { val: 8, name: "half" } },
+  { component: QuarterNote, details: { val: 4, name: "quarter" } },
+  { component: EigthNote, details: { val: 2, name: "eighth" } },
+  { component: SixteenthNote, details: { val: 1, name: "sixteenth" } },
 ];
+
+// val: number;
+// name: keyof typeof noteMapping;
+// sign?: string;

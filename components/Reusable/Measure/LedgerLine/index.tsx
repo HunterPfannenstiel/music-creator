@@ -1,6 +1,11 @@
 import { CSSProperties, FunctionComponent, ReactNode } from "react";
 import classes from "./index.module.css";
-import { MeasureNotes, OccupiedUnits } from "../../../../types/music";
+import {
+  MeasureNote,
+  MeasureNotes,
+  Note,
+  OccupiedUnits,
+} from "../../../../types/music";
 import { noteMapping } from "../../../../utils/notes";
 import LedgerUnit from "./LedgerUnit";
 
@@ -9,6 +14,7 @@ interface LedgerLineProps {
   measureNotes: MeasureNotes;
   totalUnits: number;
   lineNumber: number;
+  onNoteDrop: (noteDetails: Note) => void;
 }
 
 const LedgerLine: FunctionComponent<LedgerLineProps> = ({
@@ -16,6 +22,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   measureNotes,
   totalUnits,
   lineNumber,
+  onNoteDrop,
 }) => {
   const ledgerSpace: ReactNode[] = [];
   const ledgerLine = [];
@@ -31,6 +38,13 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         length={length}
         note={SpaceNote ? <SpaceNote /> : undefined}
         containsNote={!!occupiedUnits[i]}
+        onNoteDrop={(noteInfo) => {
+          if (!occupiedUnits[i]) {
+            const noteDetails = JSON.parse(noteInfo) as MeasureNote;
+
+            onNoteDrop({ ...noteDetails, x: i, y: lineNumber + 1 });
+          }
+        }}
       />
     );
     ledgerLine.push(
@@ -39,6 +53,12 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         length={length}
         note={LedgerNote ? <LedgerNote /> : undefined}
         containsNote={!!occupiedUnits[i]}
+        onNoteDrop={(noteInfo) => {
+          if (!occupiedUnits[i]) {
+            const noteDetails = JSON.parse(noteInfo) as MeasureNote;
+            onNoteDrop({ ...noteDetails, x: i, y: lineNumber });
+          }
+        }}
       />
     );
     i += length - 1;
