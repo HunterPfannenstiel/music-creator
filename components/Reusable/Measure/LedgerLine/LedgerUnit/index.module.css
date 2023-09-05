@@ -16,7 +16,7 @@
 .line {
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
-    padding-top: calc(var(--unit-percent)/2);
+    padding-top: calc(var(--unit-percent)/5);
     background-color: black;
 }
 
@@ -34,4 +34,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    scale: 1.5;
 }

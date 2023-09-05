@@ -15,6 +15,7 @@ interface LedgerLineProps {
   totalUnits: number;
   lineNumber: number;
   onNoteDrop: (noteDetails: Note) => void;
+  onNoteClick: (lineNumber: number, startUnit: number) => void;
 }
 
 const LedgerLine: FunctionComponent<LedgerLineProps> = ({
@@ -23,6 +24,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   totalUnits,
   lineNumber,
   onNoteDrop,
+  onNoteClick,
 }) => {
   const ledgerSpace: ReactNode[] = [];
   const ledgerLine = [];
@@ -36,12 +38,18 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
       <LedgerUnit
         isLedgerSpace
         length={length}
+        onNoteClick={() => {
+          onNoteClick(lineNumber + 1, i - length + 1);
+        }}
         note={SpaceNote ? <SpaceNote /> : undefined}
         containsNote={!!occupiedUnits[i]}
         onNoteDrop={(noteInfo) => {
           if (!occupiedUnits[i]) {
             const noteDetails = JSON.parse(noteInfo) as MeasureNote;
-
+            if (i + noteDetails.val > totalUnits) return;
+            for (let j = i; j < i + noteDetails.val; j++) {
+              if (occupiedUnits[j]) return;
+            }
             onNoteDrop({ ...noteDetails, x: i, y: lineNumber + 1 });
           }
         }}
@@ -52,6 +60,9 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         isLedgerSpace={false}
         length={length}
         note={LedgerNote ? <LedgerNote /> : undefined}
+        onNoteClick={() => {
+          onNoteClick(lineNumber, i - length + 1);
+        }}
         containsNote={!!occupiedUnits[i]}
         onNoteDrop={(noteInfo) => {
           if (!occupiedUnits[i]) {

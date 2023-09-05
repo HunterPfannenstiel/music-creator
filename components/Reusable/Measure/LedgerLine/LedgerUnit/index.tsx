@@ -10,6 +10,7 @@ interface LedgerUnitProps {
   containsNote?: boolean;
   isLedgerSpace: boolean;
   onNoteDrop: (noteInfo: string) => void;
+  onNoteClick?: () => void;
 }
 
 const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
@@ -18,6 +19,7 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
   containsNote,
   isLedgerSpace,
   onNoteDrop,
+  onNoteClick,
 }) => {
   if (!containsNote) {
     return (
@@ -37,7 +39,11 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
         )}
         style={{ "--length": length } as CSSProperties}
       >
-        {note && <div className={classes.note}>{note}</div>}
+        {note && (
+          <div className={classes.note} onClick={onNoteClick}>
+            {note}
+          </div>
+        )}
       </li>
     );
 };

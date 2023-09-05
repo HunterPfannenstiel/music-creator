@@ -38,6 +38,19 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
     }));
   };
 
+  const onNoteClick = (lineNumber: number, startUnit: number) => {
+    setOccupiedUnits((prevState) => {
+      const copyState = { ...prevState };
+      delete copyState[startUnit];
+      return copyState;
+    });
+    setNotes((prevState) => {
+      const copyState = { ...prevState };
+      delete copyState[lineNumber][startUnit];
+      return copyState;
+    });
+  };
+
   return (
     <div className={classes.measure}>
       <LedgerLine
@@ -46,6 +59,7 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
         measureNotes={notes}
         lineNumber={8}
         onNoteDrop={onNoteDrop}
+        onNoteClick={onNoteClick}
       />
       <LedgerLine
         totalUnits={unitsPerMeasure}
@@ -53,6 +67,7 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
         measureNotes={notes}
         lineNumber={6}
         onNoteDrop={onNoteDrop}
+        onNoteClick={onNoteClick}
       />
       <LedgerLine
         totalUnits={unitsPerMeasure}
@@ -60,6 +75,7 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
         measureNotes={notes}
         lineNumber={4}
         onNoteDrop={onNoteDrop}
+        onNoteClick={onNoteClick}
       />
       <LedgerLine
         totalUnits={unitsPerMeasure}
@@ -67,6 +83,7 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
         measureNotes={notes}
         lineNumber={2}
         onNoteDrop={onNoteDrop}
+        onNoteClick={onNoteClick}
       />
       <LedgerLine
         totalUnits={unitsPerMeasure}
@@ -74,6 +91,7 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
         measureNotes={notes}
         lineNumber={0}
         onNoteDrop={onNoteDrop}
+        onNoteClick={onNoteClick}
       />
     </div>
   );
