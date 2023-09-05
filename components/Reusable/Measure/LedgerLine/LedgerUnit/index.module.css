@@ -1,0 +1,37 @@
+/*
+ *--unit-percent is provided by a parent defined in a different file
+*/
+
+.space {
+    position: relative;
+    width: calc(var(--unit-percent) * var(--length));
+    padding-top: var(--unit-percent);
+    margin-block: 0.25rem;
+}
+
+.space:hover {
+    outline: 1px solid gold;
+}
+
+.line {
+    position: relative;
+    width: calc(var(--unit-percent) * var(--length));
+    padding-top: calc(var(--unit-percent)/2);
+    background-color: black;
+}
+
+.line:hover {
+    background-color: green;
+}
+
+.occupied:hover {
+    outline: 1px solid red;
+}
+
+.note {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
