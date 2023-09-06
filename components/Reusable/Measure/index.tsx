@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from "react";
 import classes from "./index.module.css";
 import LedgerLine from "./LedgerLine";
 import { MeasureNotes, Note, OccupiedUnits } from "../../../types/music";
+import { measureNotesToNotes, playMeasures } from "../../../utils/notes";
 
 interface MeasureProps {
   unitsPerMeasure: number;
@@ -51,49 +52,57 @@ const Measure: FunctionComponent<MeasureProps> = ({ unitsPerMeasure }) => {
     });
   };
 
+  const onPlay = () => {
+    const n = measureNotesToNotes(notes, 0, 16);
+    playMeasures(n, 16, 60);
+  };
+
   return (
-    <div className={classes.measure}>
-      <LedgerLine
-        totalUnits={unitsPerMeasure}
-        occupiedUnits={occupiedUnits}
-        measureNotes={notes}
-        lineNumber={8}
-        onNoteDrop={onNoteDrop}
-        onNoteClick={onNoteClick}
-      />
-      <LedgerLine
-        totalUnits={unitsPerMeasure}
-        occupiedUnits={occupiedUnits}
-        measureNotes={notes}
-        lineNumber={6}
-        onNoteDrop={onNoteDrop}
-        onNoteClick={onNoteClick}
-      />
-      <LedgerLine
-        totalUnits={unitsPerMeasure}
-        occupiedUnits={occupiedUnits}
-        measureNotes={notes}
-        lineNumber={4}
-        onNoteDrop={onNoteDrop}
-        onNoteClick={onNoteClick}
-      />
-      <LedgerLine
-        totalUnits={unitsPerMeasure}
-        occupiedUnits={occupiedUnits}
-        measureNotes={notes}
-        lineNumber={2}
-        onNoteDrop={onNoteDrop}
-        onNoteClick={onNoteClick}
-      />
-      <LedgerLine
-        totalUnits={unitsPerMeasure}
-        occupiedUnits={occupiedUnits}
-        measureNotes={notes}
-        lineNumber={0}
-        onNoteDrop={onNoteDrop}
-        onNoteClick={onNoteClick}
-      />
-    </div>
+    <>
+      <button onClick={onPlay}>Play Measure</button>
+      <div className={classes.measure}>
+        <LedgerLine
+          totalUnits={unitsPerMeasure}
+          occupiedUnits={occupiedUnits}
+          measureNotes={notes}
+          lineNumber={8}
+          onNoteDrop={onNoteDrop}
+          onNoteClick={onNoteClick}
+        />
+        <LedgerLine
+          totalUnits={unitsPerMeasure}
+          occupiedUnits={occupiedUnits}
+          measureNotes={notes}
+          lineNumber={6}
+          onNoteDrop={onNoteDrop}
+          onNoteClick={onNoteClick}
+        />
+        <LedgerLine
+          totalUnits={unitsPerMeasure}
+          occupiedUnits={occupiedUnits}
+          measureNotes={notes}
+          lineNumber={4}
+          onNoteDrop={onNoteDrop}
+          onNoteClick={onNoteClick}
+        />
+        <LedgerLine
+          totalUnits={unitsPerMeasure}
+          occupiedUnits={occupiedUnits}
+          measureNotes={notes}
+          lineNumber={2}
+          onNoteDrop={onNoteDrop}
+          onNoteClick={onNoteClick}
+        />
+        <LedgerLine
+          totalUnits={unitsPerMeasure}
+          occupiedUnits={occupiedUnits}
+          measureNotes={notes}
+          lineNumber={0}
+          onNoteDrop={onNoteDrop}
+          onNoteClick={onNoteClick}
+        />
+      </div>
+    </>
   );
 };
 

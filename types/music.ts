@@ -7,7 +7,7 @@ export type MeasureNote = {
 };
 
 export type MeasureNotes = {
-  [ledgerLine: number]: { [startUnit: number]: MeasureNote };
+  [ledgerLine: string]: { [startUnit: string]: MeasureNote };
 };
 
 export type Note = MeasureNote & { x: number; y: number };
