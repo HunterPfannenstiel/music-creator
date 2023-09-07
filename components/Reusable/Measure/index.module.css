@@ -1,4 +1,4 @@
 .measure {
-    width: 75%;
+    min-width: 75vw;
     margin-inline: auto;
 }

@@ -46,6 +46,12 @@ const notes: { component: FunctionComponent; details: MeasureNote }[] = [
   { component: HalfNote, details: { val: 8, name: "half" } },
   { component: QuarterNote, details: { val: 4, name: "quarter" } },
   { component: EigthNote, details: { val: 2, name: "eighth" } },
+  {
+    component: () => {
+      return <>"D8"</>;
+    },
+    details: { val: 3, name: "dottedEighth" },
+  },
   { component: SixteenthNote, details: { val: 1, name: "sixteenth" } },
 ];
 

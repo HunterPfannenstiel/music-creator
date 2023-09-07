@@ -11,6 +11,7 @@ interface LedgerUnitProps {
   isLedgerSpace: boolean;
   onNoteDrop: (noteInfo: string) => void;
   onNoteClick?: () => void;
+  outOfRange?: boolean;
 }
 
 const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
@@ -20,13 +21,17 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
   isLedgerSpace,
   onNoteDrop,
   onNoteClick,
+  outOfRange,
 }) => {
   if (!containsNote) {
     return (
       <DropContainer
         dropHandler={onNoteDrop}
         dataName="note"
-        className={isLedgerSpace ? classes.space : classes.line}
+        className={concatClassNames(
+          isLedgerSpace ? classes.space : classes.line,
+          outOfRange ? classes.light : undefined
+        )}
         style={{ "--length": length } as CSSProperties}
       />
     );
@@ -35,7 +40,8 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
       <li
         className={concatClassNames(
           isLedgerSpace ? classes.space : classes.line,
-          classes.occupied
+          classes.occupied,
+          outOfRange ? classes.light : undefined
         )}
         style={{ "--length": length } as CSSProperties}
       >

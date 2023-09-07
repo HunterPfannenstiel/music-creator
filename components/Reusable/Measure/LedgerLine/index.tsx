@@ -35,42 +35,26 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
     const SpaceNote = spaceNotes && noteMapping[spaceNotes[i]?.name];
     const LedgerNote = lineNotes && noteMapping[lineNotes[i]?.name];
     ledgerSpace.push(
-      <LedgerUnit
-        isLedgerSpace
-        length={length}
-        onNoteClick={() => {
-          onNoteClick(lineNumber + 1, i - length + 1);
-        }}
-        note={SpaceNote ? <SpaceNote /> : undefined}
-        containsNote={!!occupiedUnits[i]}
-        onNoteDrop={(noteInfo) => {
-          if (!occupiedUnits[i]) {
-            const noteDetails = JSON.parse(noteInfo) as MeasureNote;
-            if (i + noteDetails.val > totalUnits) return;
-            for (let j = i; j < i + noteDetails.val; j++) {
-              if (occupiedUnits[j]) return;
-            }
-            onNoteDrop({ ...noteDetails, x: i, y: lineNumber + 1 });
-          }
-        }}
-      />
+      getLedgerUnit(
+        occupiedUnits,
+        lineNumber + 1,
+        onNoteDrop,
+        onNoteClick,
+        true,
+        i,
+        SpaceNote ? <SpaceNote /> : undefined
+      )
     );
     ledgerLine.push(
-      <LedgerUnit
-        isLedgerSpace={false}
-        length={length}
-        note={LedgerNote ? <LedgerNote /> : undefined}
-        onNoteClick={() => {
-          onNoteClick(lineNumber, i - length + 1);
-        }}
-        containsNote={!!occupiedUnits[i]}
-        onNoteDrop={(noteInfo) => {
-          if (!occupiedUnits[i]) {
-            const noteDetails = JSON.parse(noteInfo) as MeasureNote;
-            onNoteDrop({ ...noteDetails, x: i, y: lineNumber });
-          }
-        }}
-      />
+      getLedgerUnit(
+        occupiedUnits,
+        lineNumber,
+        onNoteDrop,
+        onNoteClick,
+        false,
+        i,
+        LedgerNote ? <LedgerNote /> : undefined
+      )
     );
     i += length - 1;
   }
@@ -86,3 +70,33 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
 };
 
 export default LedgerLine;
+
+const getLedgerUnit = (
+  occupiedUnits: OccupiedUnits,
+  lineNumber: number,
+  onNoteDrop: (noteDetails: Note) => void,
+  onNoteClick: (lineNumber: number, startUnit: number) => void,
+  isLedgerSpace: boolean,
+  startUnit: number,
+  note?: ReactNode
+) => {
+  let length = occupiedUnits[startUnit] || 1;
+  return (
+    <LedgerUnit
+      outOfRange={lineNumber < 0 || lineNumber > 8}
+      isLedgerSpace={isLedgerSpace}
+      length={length}
+      note={note}
+      onNoteClick={() => {
+        onNoteClick(lineNumber, startUnit);
+      }}
+      containsNote={!!occupiedUnits[startUnit]}
+      onNoteDrop={(noteInfo) => {
+        if (!occupiedUnits[startUnit]) {
+          const noteDetails = JSON.parse(noteInfo) as MeasureNote;
+          onNoteDrop({ ...noteDetails, x: startUnit, y: lineNumber });
+        }
+      }}
+    />
+  );
+};

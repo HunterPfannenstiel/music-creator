@@ -20,6 +20,10 @@
     background-color: black;
 }
 
+.line.light {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .line:hover {
     background-color: green;
 }

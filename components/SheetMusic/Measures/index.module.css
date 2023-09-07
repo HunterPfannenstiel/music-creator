@@ -1,0 +1,6 @@
+.measures {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: scroll;
+    padding-inline: 1.5rem;
+}
