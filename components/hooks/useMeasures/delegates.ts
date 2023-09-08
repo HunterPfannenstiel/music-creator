@@ -1,5 +1,6 @@
 import { Measure } from ".";
 import { Note } from "../../../types/music";
+import { deepCopy } from "../../../utils";
 
 export type MeasureDelegate = (
   measures: Measure[],
@@ -38,4 +39,21 @@ export const addMeasure = (): MeasureDelegate => (measures) => {
 export const deleteMeasure =
   (): MeasureDelegate => (measures, measureIndex) => {
     measures.splice(measureIndex, 1);
+  };
+
+export const duplicateMeasure =
+  (): MeasureDelegate => (measures, measureIndex) => {
+    const newMeasure = deepCopy(measures[measureIndex]);
+    measures.splice(measureIndex, 0, newMeasure);
+  };
+
+export const clearMeasure = (): MeasureDelegate => (measures, measureIndex) => {
+  measures[measureIndex] = [{}, {}];
+};
+
+export const moveMeasure =
+  (newIndex: number): MeasureDelegate =>
+  (measures, measureIndex) => {
+    const measure = measures.splice(measureIndex, 1)[0];
+    measures.splice(newIndex, 0, measure);
   };

@@ -10,11 +10,13 @@ import { MeasureNote } from "../../../../types/music";
 
 interface NoteSelectionProps {
   smallestUnit: number;
+  noteWidth: string;
   selectedVal?: number;
 }
 
 const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
   smallestUnit,
+  noteWidth,
   selectedVal,
 }) => {
   return (
@@ -28,7 +30,7 @@ const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
                 noteDetails={note.details}
                 isSelected={selectedVal === note.details.val}
               >
-                <Component />
+                <Component width={noteWidth} />
               </Note>
             );
           }
@@ -41,7 +43,10 @@ const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
 
 export default NoteSelection;
 
-const notes: { component: FunctionComponent; details: MeasureNote }[] = [
+const notes: {
+  component: FunctionComponent<{ width: string }>;
+  details: MeasureNote;
+}[] = [
   { component: WholeNote, details: { val: 16, name: "whole" } },
   { component: HalfNote, details: { val: 8, name: "half" } },
   { component: QuarterNote, details: { val: 4, name: "quarter" } },

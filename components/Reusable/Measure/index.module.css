@@ -1,4 +1,15 @@
 .measure {
     min-width: 75vw;
     margin-inline: auto;
+    padding-block: 1rem;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.btns {
+    display: flex;
+    gap: 1rem;
 }

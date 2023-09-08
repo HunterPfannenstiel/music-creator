@@ -9,7 +9,7 @@ interface HomePageProps {}
 const HomePage: FunctionComponent<HomePageProps> = () => {
   return (
     <>
-      <NoteSelection smallestUnit={16} selectedVal={16} />
+      <NoteSelection smallestUnit={16} selectedVal={16} noteWidth="15px" />
       <Measures />
     </>
   );

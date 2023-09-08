@@ -1,0 +1,32 @@
+.base {
+    --width: 20px;
+    position: relative;
+    border-radius: 100%;
+}
+
+.base.empty {
+    --new-width: calc(var(--width) - (var(--width)/4));
+    width: var(--new-width);
+    padding-top: var(--new-width);
+    outline: calc(var(--width)/4) solid black;
+    margin: 0;
+}
+
+.base.empty .staff {
+    right: -20%;
+}
+
+.base.fill {
+    width: var(--width);
+    padding-top: var(--width);
+    background-color: black;
+}
+
+.staff {
+    position: absolute;
+    width: calc(var(--width)/4);
+    height: calc(var(--width) * 1.75);
+    background-color: black;
+    bottom: 50%;
+    right: 0;
+}

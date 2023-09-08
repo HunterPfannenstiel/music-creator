@@ -1,0 +1,5 @@
+.flag {
+    width: calc(var(--width)/1.5);
+    height: calc(var(--width)/3);
+    background-color: black;
+}

@@ -5,8 +5,11 @@ import {
   MeasureDelegate,
   addMeasure,
   addNote,
+  clearMeasure,
   deleteMeasure,
   deleteNote,
+  duplicateMeasure,
+  moveMeasure,
 } from "./delegates";
 
 export type Measure = [MeasureNotes, OccupiedUnits];
@@ -52,12 +55,24 @@ const useMeasures = () => {
     dispatch({ measureIndex, delegate: deleteMeasure() });
   };
 
-  const onPlay = () => {
+  const onDuplicateMeasure = (measureIndex: number) => {
+    dispatch({ measureIndex, delegate: duplicateMeasure() });
+  };
+
+  const onClearMeasure = (measureIndex: number) => {
+    dispatch({ measureIndex, delegate: clearMeasure() });
+  };
+
+  const onMoveMeasure = (measureIndex: number, newIndex: number) => {
+    dispatch({ measureIndex, delegate: moveMeasure(newIndex) });
+  };
+
+  const onPlay = (unitsPerMeasure: number, bpm: number) => {
     const n: Note[] = [];
     measures.forEach((measure, i) => {
       n.push(...measureNotesToNotes(measure[0], i, 16));
     });
-    playMeasures(n, 16, 113);
+    playMeasures(n, unitsPerMeasure, bpm);
   };
 
   return {
@@ -66,6 +81,9 @@ const useMeasures = () => {
     onNoteClick,
     onAddMeasure,
     onDeleteMeasure,
+    onDuplicateMeasure,
+    onClearMeasure,
+    onMoveMeasure,
     onPlay,
   };
 };
