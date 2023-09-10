@@ -1,11 +1,9 @@
 import { FunctionComponent } from "react";
 import NoteBase from "./NoteBase";
 
-interface HalfNoteProps {
-  width: string;
-}
+interface HalfNoteProps {}
 
-const HalfNote: FunctionComponent<HalfNoteProps> = ({ width }) => {
+const HalfNote: FunctionComponent<HalfNoteProps> = () => {
   return <NoteBase fill={false} />;
 };
 

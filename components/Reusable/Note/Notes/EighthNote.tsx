@@ -2,11 +2,9 @@ import { FunctionComponent } from "react";
 import NoteBase from "./NoteBase";
 import NoteFlag from "./NoteFlag";
 
-interface EigthNoteProps {
-  width: string;
-}
+interface EigthNoteProps {}
 
-const EigthNote: FunctionComponent<EigthNoteProps> = ({ width }) => {
+const EigthNote: FunctionComponent<EigthNoteProps> = () => {
   return (
     <NoteBase>
       <NoteFlag />

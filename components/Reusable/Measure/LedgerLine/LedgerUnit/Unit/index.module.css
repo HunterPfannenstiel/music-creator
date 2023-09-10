@@ -1,40 +1,18 @@
-/*
- *--unit-percent is provided by a parent defined in a different file
-*/
-
-.drop_container {
-    width: fit-content;
-    height: fit-content;
-}
-
-/* .space {
+.space {
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
     padding-top: var(--unit-percent);
-    margin-block: 0.25rem;
-}
-
-.space:hover {
-    outline: 1px solid gold;
 }
 
 .line {
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
-    padding-top: calc(var(--unit-percent)/5);
+    padding-top: calc((var(--unit-percent)/5) * var(--line-scale));
     background-color: black;
 }
 
 .line.light {
     background-color: rgba(0, 0, 0, 0.2);
-}
-
-.line:hover {
-    background-color: green;
-}
-
-.occupied:hover {
-    outline: 1px solid red;
 }
 
 .note {
@@ -44,4 +22,4 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: calc(100%/var(--length));
-} */
+}

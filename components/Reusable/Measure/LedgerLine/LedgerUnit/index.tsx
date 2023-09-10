@@ -1,11 +1,11 @@
-import { CSSProperties, FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import classes from "./index.module.css";
-
-import { concatClassNames } from "../../../../../utils";
 import DropContainer from "../../../DragDrop/DropContainer";
+import Unit from "./Unit";
 
 interface LedgerUnitProps {
   length: number;
+  unitPercent: string;
   note?: ReactNode;
   containsNote?: boolean;
   isLedgerSpace: boolean;
@@ -16,6 +16,7 @@ interface LedgerUnitProps {
 
 const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
   length = 1,
+  unitPercent,
   note,
   containsNote,
   isLedgerSpace,
@@ -25,35 +26,36 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
 }) => {
   if (!containsNote) {
     return (
-      <DropContainer
-        dropHandler={(e) => {
-          console.log(e);
-          onNoteDrop?.call(null, e);
-        }}
-        dataName="note"
-        className={concatClassNames(
-          isLedgerSpace ? classes.space : classes.line,
-          outOfRange ? classes.light : undefined
-        )}
-        style={{ "--length": length } as CSSProperties}
-      />
+      <Unit
+        isSpace={isLedgerSpace}
+        isOutOfRange={!!outOfRange}
+        unitPercent={unitPercent}
+        length={length}
+      >
+        <DropContainer
+          dropHandler={(e) => {
+            console.log(e);
+            onNoteDrop?.call(null, e);
+          }}
+          className={classes.drop_container}
+          dataName="note"
+        />
+      </Unit>
     );
   } else
     return (
-      <li
-        className={concatClassNames(
-          isLedgerSpace ? classes.space : classes.line,
-          classes.occupied,
-          outOfRange ? classes.light : undefined
-        )}
-        style={{ "--length": length } as CSSProperties}
+      <Unit
+        isSpace={isLedgerSpace}
+        unitPercent={unitPercent}
+        isOutOfRange={!!outOfRange}
+        length={length}
       >
         {note && (
           <div className={classes.note} onClick={onNoteClick}>
             {note}
           </div>
         )}
-      </li>
+      </Unit>
     );
 };
 

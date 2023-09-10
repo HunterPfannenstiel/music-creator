@@ -2,7 +2,7 @@
 
 import { FunctionComponent } from "react";
 import NoteSelection from "../components/Reusable/Note/NoteSelection";
-import Measures from "../components/SheetMusic/Measures";
+import Measures from "../components/ui/SheetMusic/Measures";
 
 interface HomePageProps {}
 

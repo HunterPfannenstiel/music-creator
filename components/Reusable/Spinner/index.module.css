@@ -1,0 +1,27 @@
+.spinner {
+    border-radius: 50%;
+    border: 3px solid var(--primary-blue);
+    border-right: solid transparent;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    z-index: 2;
+}
+
+.center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}

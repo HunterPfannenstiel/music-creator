@@ -1,11 +1,9 @@
 import { FunctionComponent } from "react";
 import NoteBase from "./NoteBase";
 
-interface QuarterNoteProps {
-  width: string;
-}
+interface QuarterNoteProps {}
 
-const QuarterNote: FunctionComponent<QuarterNoteProps> = ({ width }) => {
+const QuarterNote: FunctionComponent<QuarterNoteProps> = () => {
   return <NoteBase />;
 };
 

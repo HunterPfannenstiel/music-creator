@@ -18,6 +18,23 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "paths": {
+      "@_types/*": [
+        "types/*"
+      ],
+      "@_hooks/*": [
+        "components/hooks/*"
+      ],
+      "@_providers/*": [
+        "components/providers/*"
+      ],
+      "@ui/*": ["components/ui/*"],
+      "@_utils/*": [
+        "utils/*"
+      ],
+      "@_admin-reuse/*": ["components/admin/ui/Reusable/*"]
+    },
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -28,31 +45,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "utils/database/test.js",
     ".next/types/**/*.ts"
-  ],
+, "utils/dymo/old.js", "utils/database/admin/menu-queries"  ],
   "exclude": [
     "node_modules"
-  ],
-  "paths": {
-    "@_types/*": [
-      "types/*"
-    ],
-    "@_hooks/*": [
-      "components/hooks/*"
-    ],
-    "@_providers/*": [
-      "components/providers/*"
-    ],
-    "@_ui/*": ["components/ui/*"],
-    "@_utils/*": [
-      "utils/*"
-    ],
-  },
-  "baseUrl": "./",
-  "plugins": [
-    {
-      "name": "next"
-    }
   ]
 }
-

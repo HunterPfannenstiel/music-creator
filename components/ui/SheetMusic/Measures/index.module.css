@@ -1,0 +1,9 @@
+.measures {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: 1.5rem;
+}
+
+.measure_container {
+    width: 25%;
+}

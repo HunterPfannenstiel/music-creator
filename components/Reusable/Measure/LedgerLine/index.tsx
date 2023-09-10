@@ -1,12 +1,6 @@
-import { CSSProperties, FunctionComponent, ReactNode } from "react";
-import classes from "./index.module.css";
-import {
-  MeasureNote,
-  MeasureNotes,
-  Note,
-  OccupiedUnits,
-} from "../../../../types/music";
-import { noteMapping } from "../../../../utils/notes";
+import { FunctionComponent, ReactNode } from "react";
+import { MeasureNote, MeasureNotes, Note, OccupiedUnits } from "@_types/music";
+import { noteMapping } from "@_utils/notes";
 import LedgerUnit from "./LedgerUnit";
 import LedgerConatiner from "../LedgerContainer";
 
@@ -30,7 +24,6 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   const ledgerSpace: ReactNode[] = [];
   const ledgerLine = [];
   const unitWidth = 100 / unitsPerMeasure;
-  console.log(unitWidth);
   for (let i = 0; i < unitsPerMeasure; i++) {
     let length = occupiedUnits[i] || 1;
     const spaceNotes = measureNotes[lineNumber + 1];
@@ -45,7 +38,8 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         onNoteClick,
         true,
         i,
-        SpaceNote ? <SpaceNote width={unitWidth + "px"} /> : undefined
+        unitWidth,
+        SpaceNote ? <SpaceNote /> : undefined
       )
     );
     ledgerLine.push(
@@ -56,18 +50,13 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         onNoteClick,
         false,
         i,
-        LedgerNote ? <LedgerNote width={unitWidth + "%"} /> : undefined
+        unitWidth,
+        LedgerNote ? <LedgerNote /> : undefined
       )
     );
     i += length - 1;
   }
-  return (
-    <LedgerConatiner
-      ledgerSpace={ledgerSpace}
-      ledgerLine={ledgerLine}
-      unitPercent={unitWidth + "%"}
-    />
-  );
+  return <LedgerConatiner ledgerSpace={ledgerSpace} ledgerLine={ledgerLine} />;
 };
 
 export default LedgerLine;
@@ -79,11 +68,13 @@ const getLedgerUnit = (
   onNoteClick: (lineNumber: number, startUnit: number) => void,
   isLedgerSpace: boolean,
   startUnit: number,
+  unitWidth: number,
   note?: ReactNode
 ) => {
   let length = occupiedUnits[startUnit] || 1;
   return (
     <LedgerUnit
+      unitPercent={unitWidth + "%"}
       outOfRange={lineNumber < 0 || lineNumber > 8}
       isLedgerSpace={isLedgerSpace}
       length={length}
