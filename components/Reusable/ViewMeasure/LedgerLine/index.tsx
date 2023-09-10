@@ -19,7 +19,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   const spaceNotes = measureNotes[lineNumber + 1];
 
   const unitWidth = 100 / unitsPerMeasure + "%";
-  const outOfRange = lineNumber < 0 || lineNumber > 8;
+  const outOfRange = lineNumber < 0 || lineNumber > 10;
   const ledgerLine = getUnits(
     unitsPerMeasure,
     lineNotes,
@@ -40,13 +40,15 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
 
 export default LedgerLine;
 
+type Notes =
+  | {
+      [startUnit: string]: MeasureNote;
+    }
+  | undefined;
+
 const getUnits = (
   unitsPerMeasure: number,
-  notes:
-    | {
-        [startUnit: string]: MeasureNote;
-      }
-    | undefined,
+  notes: Notes,
   unitWidth: string,
   outOfRange: boolean,
   isSpace: boolean
@@ -67,7 +69,7 @@ const getUnits = (
   for (let i = 0; i < unitsPerMeasure; i++) {
     length++;
     if (notes[i]) {
-      const noteDetails = notes[length];
+      const noteDetails = notes[i];
       const Note = noteMapping[noteDetails.name];
       length > 1 &&
         nodeArray.push(
@@ -90,9 +92,20 @@ const getUnits = (
           <Note />
         </Unit>
       );
-      i += noteDetails.val;
+      i += noteDetails.val - 1;
       length = 0;
     }
+  }
+  if (length) {
+    nodeArray.push(
+      <Unit
+        length={length}
+        unitPercent={unitWidth}
+        isSpace={isSpace}
+        isOutOfRange={outOfRange}
+        lineThicknessScale={0.3}
+      />
+    );
   }
   return nodeArray;
 };

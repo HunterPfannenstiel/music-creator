@@ -1,4 +1,4 @@
-import { Measure } from ".";
+import { Measure } from "../../hooks/useMeasures";
 import { Note } from "../../../types/music";
 import { deepCopy } from "../../../utils";
 

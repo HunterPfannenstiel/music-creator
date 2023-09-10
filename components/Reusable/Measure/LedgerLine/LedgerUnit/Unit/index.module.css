@@ -2,6 +2,7 @@
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
     padding-top: var(--unit-percent);
+    height: 0;
 }
 
 .line {
@@ -9,6 +10,7 @@
     width: calc(var(--unit-percent) * var(--length));
     padding-top: calc((var(--unit-percent)/5) * var(--line-scale));
     background-color: black;
+    height: 0;
 }
 
 .line.light {

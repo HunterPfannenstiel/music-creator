@@ -1,5 +1,5 @@
 import { CSSProperties, FunctionComponent, ReactNode } from "react";
-import classes from "./ModalDisplay.module.css";
+import classes from "./index.module.css";
 import Background from "./Background";
 
 import Spinner from "../Spinner";
@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 import ModalPortal from "./ModalPortal";
 import { concatClassNames } from "../../../utils";
 
-interface ModalDisplayProps {
+interface ModalProps {
   children: ReactNode;
   handleModal: () => void;
   playAnimation: boolean;
@@ -17,7 +17,7 @@ interface ModalDisplayProps {
   closeable?: boolean;
 }
 
-const ModalDisplay: FunctionComponent<ModalDisplayProps> = ({
+const Modal: FunctionComponent<ModalProps> = ({
   handleModal,
   playAnimation,
   animationTime,
@@ -63,4 +63,4 @@ const ModalDisplay: FunctionComponent<ModalDisplayProps> = ({
   );
 };
 
-export default ModalDisplay;
+export default Modal;

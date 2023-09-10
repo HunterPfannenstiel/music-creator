@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import classes from "./Spinner.module.css";
+import classes from "./index.module.css";
 import { concatClassNames } from "../../../utils";
 
 interface SpinnerProps {

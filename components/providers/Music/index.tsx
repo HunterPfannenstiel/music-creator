@@ -1,6 +1,9 @@
-import { useReducer } from "react";
-import { MeasureNotes, Note, OccupiedUnits } from "../../../types/music";
-import { measureNotesToNotes, playMeasures } from "../../../utils/notes";
+import { ReactNode, createContext, useContext, useReducer } from "react";
+
+const Music = createContext(getMusicContext());
+
+import { FunctionComponent } from "react";
+import classes from "./MusicProvider.module.css";
 import {
   MeasureDelegate,
   addMeasure,
@@ -10,7 +13,14 @@ import {
   deleteNote,
   duplicateMeasure,
   moveMeasure,
-} from "../../providers/Music/delegates";
+} from "@_providers/Music/delegates";
+import { MeasureNotes, Note, OccupiedUnits } from "@_types/music";
+import { measureNotesToNotes, playMeasures } from "@_utils/notes";
+import { getMusicContext } from "./utils";
+
+interface MusicProviderProps {
+  children: ReactNode;
+}
 
 export type Measure = [MeasureNotes, OccupiedUnits];
 
@@ -32,7 +42,7 @@ const reducer = (
   return newState;
 };
 
-const useMeasures = () => {
+const MusicProvider: FunctionComponent<MusicProviderProps> = ({ children }) => {
   const [measures, dispatch] = useReducer(reducer, []);
 
   const onNoteDrop = (measureIndex: number, note: Note) => {
@@ -74,18 +84,25 @@ const useMeasures = () => {
     });
     playMeasures(n, unitsPerMeasure, bpm);
   };
-
-  return {
-    measures,
-    onNoteDrop,
-    onNoteClick,
-    onAddMeasure,
-    onDeleteMeasure,
-    onDuplicateMeasure,
-    onClearMeasure,
-    onMoveMeasure,
-    onPlay,
-  };
+  return (
+    <Music.Provider
+      value={{
+        measures,
+        onNoteDrop,
+        onNoteClick,
+        onAddMeasure,
+        onDeleteMeasure,
+        onDuplicateMeasure,
+        onClearMeasure,
+        onMoveMeasure,
+        onPlay,
+      }}
+    >
+      {children}
+    </Music.Provider>
+  );
 };
 
-export default useMeasures;
+export default MusicProvider;
+
+export const useMusic = () => useContext(Music);

@@ -1,3 +1,7 @@
+.music {
+    width: 100%;
+}
+
 .measures {
     display: flex;
     flex-wrap: wrap;

@@ -36,7 +36,7 @@ const Unit: FunctionComponent<UnitProps> = ({
         } as CSSProperties
       }
     >
-      {children}
+      {children && <div className={classes.note}>{children}</div>}
     </li>
   );
 };

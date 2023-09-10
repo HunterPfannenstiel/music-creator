@@ -15,18 +15,14 @@
 }
 
 .base.fill {
-    /* width: var(--width); */
     width: 100%;
-    /* padding-top: var(--width); */
     padding-top: 100%;
     background-color: black;
 }
 
 .staff {
     position: absolute;
-    /* width: calc(var(--width)/4);
-    height: calc(var(--width) * 1.75); */
-    width: 25%;
+    width: 15%;
     height: 175%;
     background-color: black;
     bottom: 50%;
