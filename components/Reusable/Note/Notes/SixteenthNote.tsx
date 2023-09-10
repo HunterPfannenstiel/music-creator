@@ -8,9 +8,9 @@ interface SixteenthNoteProps {
 
 const SixteenthNote: FunctionComponent<SixteenthNoteProps> = ({ width }) => {
   return (
-    <NoteBase width={width}>
+    <NoteBase>
       <NoteFlag />
-      <NoteFlag topOffset="1px" />
+      <NoteFlag topOffset="25%" />
     </NoteBase>
   );
 };

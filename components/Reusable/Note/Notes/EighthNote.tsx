@@ -8,7 +8,7 @@ interface EigthNoteProps {
 
 const EigthNote: FunctionComponent<EigthNoteProps> = ({ width }) => {
   return (
-    <NoteBase width={width}>
+    <NoteBase>
       <NoteFlag />
     </NoteBase>
   );

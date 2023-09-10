@@ -30,7 +30,7 @@ const Measure: FunctionComponent<MeasureProps> = ({
   for (let i = 14; i > -3; i -= 2) {
     ledgerLines.push(
       <LedgerLine
-        totalUnits={unitsPerMeasure}
+        unitsPerMeasure={unitsPerMeasure}
         occupiedUnits={occupiedUnits}
         measureNotes={notes}
         lineNumber={i}

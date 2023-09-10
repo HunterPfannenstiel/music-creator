@@ -1,14 +1,12 @@
 .base {
-    --width: 20px;
     position: relative;
     border-radius: 100%;
 }
 
 .base.empty {
-    --new-width: calc(var(--width) - (var(--width)/4));
-    width: var(--new-width);
-    padding-top: var(--new-width);
-    outline: calc(var(--width)/4) solid black;
+    width: 75%;
+    padding-top: 75%;
+    outline: 4px solid black;
     margin: 0;
 }
 
@@ -17,15 +15,19 @@
 }
 
 .base.fill {
-    width: var(--width);
-    padding-top: var(--width);
+    /* width: var(--width); */
+    width: 100%;
+    /* padding-top: var(--width); */
+    padding-top: 100%;
     background-color: black;
 }
 
 .staff {
     position: absolute;
-    width: calc(var(--width)/4);
-    height: calc(var(--width) * 1.75);
+    /* width: calc(var(--width)/4);
+    height: calc(var(--width) * 1.75); */
+    width: 25%;
+    height: 175%;
     background-color: black;
     bottom: 50%;
     right: 0;

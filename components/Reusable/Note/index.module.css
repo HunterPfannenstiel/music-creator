@@ -1,6 +1,5 @@
 .note_container {
-    display: inline-flex;  
-    padding: 1rem;
+    width: 100%; 
 }
 
 .selected {

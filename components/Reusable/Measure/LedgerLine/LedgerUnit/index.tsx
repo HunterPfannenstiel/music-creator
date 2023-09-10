@@ -5,13 +5,13 @@ import { concatClassNames } from "../../../../../utils";
 import DropContainer from "../../../DragDrop/DropContainer";
 
 interface LedgerUnitProps {
-  length?: number;
+  length: number;
   note?: ReactNode;
   containsNote?: boolean;
   isLedgerSpace: boolean;
-  onNoteDrop: (noteInfo: string) => void;
+  onNoteDrop?: (noteInfo: string) => void;
   onNoteClick?: () => void;
-  outOfRange?: boolean;
+  outOfRange?: boolean; //If the note is above/below the main measure lines
 }
 
 const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
@@ -26,7 +26,10 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
   if (!containsNote) {
     return (
       <DropContainer
-        dropHandler={onNoteDrop}
+        dropHandler={(e) => {
+          console.log(e);
+          onNoteDrop?.call(null, e);
+        }}
         dataName="note"
         className={concatClassNames(
           isLedgerSpace ? classes.space : classes.line,

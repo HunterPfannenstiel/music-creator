@@ -6,7 +6,7 @@ interface QuarterNoteProps {
 }
 
 const QuarterNote: FunctionComponent<QuarterNoteProps> = ({ width }) => {
-  return <NoteBase width={width} />;
+  return <NoteBase />;
 };
 
 export default QuarterNote;

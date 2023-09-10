@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import classes from "./NoteSelection.module.css";
+import classes from "./index.module.css";
 import QuarterNote from "../Notes/QuarterNote";
 import WholeNote from "../Notes/WholeNote";
 import EigthNote from "../Notes/EighthNote";
@@ -21,12 +21,13 @@ const NoteSelection: FunctionComponent<NoteSelectionProps> = ({
 }) => {
   return (
     <div>
-      <ul>
+      <ul className={classes.container}>
         {notes.map((note) => {
           if (note.details.val <= smallestUnit) {
             const Component = note.component;
             return (
               <Note
+                className={classes.note}
                 noteDetails={note.details}
                 isSelected={selectedVal === note.details.val}
               >

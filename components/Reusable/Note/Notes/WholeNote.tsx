@@ -6,7 +6,7 @@ interface WholeNoteProps {
 }
 
 const WholeNote: FunctionComponent<WholeNoteProps> = ({ width }) => {
-  return <NoteBase width={width} fill={false} showStaff={false} />;
+  return <NoteBase fill={false} showStaff={false} />;
 };
 
 export default WholeNote;

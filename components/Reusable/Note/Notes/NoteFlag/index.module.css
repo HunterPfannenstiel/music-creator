@@ -1,5 +1,5 @@
 .flag {
-    width: calc(var(--width)/1.5);
-    height: calc(var(--width)/3);
+    width: 230%;
+    height: 17%;
     background-color: black;
 }

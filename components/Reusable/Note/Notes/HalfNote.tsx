@@ -6,7 +6,7 @@ interface HalfNoteProps {
 }
 
 const HalfNote: FunctionComponent<HalfNoteProps> = ({ width }) => {
-  return <NoteBase width={width} fill={false} />;
+  return <NoteBase fill={false} />;
 };
 
 export default HalfNote;

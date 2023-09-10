@@ -8,11 +8,12 @@ import {
 } from "../../../../types/music";
 import { noteMapping } from "../../../../utils/notes";
 import LedgerUnit from "./LedgerUnit";
+import LedgerConatiner from "../LedgerContainer";
 
 interface LedgerLineProps {
   occupiedUnits: OccupiedUnits;
   measureNotes: MeasureNotes;
-  totalUnits: number;
+  unitsPerMeasure: number;
   lineNumber: number;
   onNoteDrop: (noteDetails: Note) => void;
   onNoteClick: (lineNumber: number, startUnit: number) => void;
@@ -21,14 +22,16 @@ interface LedgerLineProps {
 const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   occupiedUnits,
   measureNotes,
-  totalUnits,
+  unitsPerMeasure,
   lineNumber,
   onNoteDrop,
   onNoteClick,
 }) => {
   const ledgerSpace: ReactNode[] = [];
   const ledgerLine = [];
-  for (let i = 0; i < totalUnits; i++) {
+  const unitWidth = 100 / unitsPerMeasure;
+  console.log(unitWidth);
+  for (let i = 0; i < unitsPerMeasure; i++) {
     let length = occupiedUnits[i] || 1;
     const spaceNotes = measureNotes[lineNumber + 1];
     const lineNotes = measureNotes[lineNumber];
@@ -42,7 +45,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         onNoteClick,
         true,
         i,
-        SpaceNote ? <SpaceNote /> : undefined
+        SpaceNote ? <SpaceNote width={unitWidth + "px"} /> : undefined
       )
     );
     ledgerLine.push(
@@ -53,19 +56,17 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         onNoteClick,
         false,
         i,
-        LedgerNote ? <LedgerNote /> : undefined
+        LedgerNote ? <LedgerNote width={unitWidth + "%"} /> : undefined
       )
     );
     i += length - 1;
   }
   return (
-    <div
-      className={classes.ledger_line}
-      style={{ "--unit-percent": 100 / totalUnits + "%" } as CSSProperties}
-    >
-      <ul className={classes.container}>{ledgerSpace}</ul>
-      <ul className={classes.container}>{ledgerLine}</ul>
-    </div>
+    <LedgerConatiner
+      ledgerSpace={ledgerSpace}
+      ledgerLine={ledgerLine}
+      unitPercent={unitWidth + "%"}
+    />
   );
 };
 
