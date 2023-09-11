@@ -5,11 +5,13 @@ import ViewMeasure from "..";
 
 interface ViewMeasureListProps {
   measuresPerLine: number;
+  selectedMeasures: { [index: number]: boolean };
   onMeasureClick?: (index: number) => void;
 }
 
 const ViewMeasureList: FunctionComponent<ViewMeasureListProps> = ({
   measuresPerLine,
+  selectedMeasures,
   onMeasureClick,
 }) => {
   const music = useMusic();
@@ -23,7 +25,11 @@ const ViewMeasureList: FunctionComponent<ViewMeasureListProps> = ({
         style={{ width: 100 / measuresPerLine + "%" }}
         onClick={onMeasureClick?.bind(null, i)}
       >
-        <ViewMeasure notes={measure[0]} unitsPerMeasure={16} />
+        <ViewMeasure
+          notes={measure[0]}
+          unitsPerMeasure={16}
+          isSelected={selectedMeasures[i]}
+        />
       </li>
     );
   }

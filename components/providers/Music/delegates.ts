@@ -41,10 +41,14 @@ export const deleteMeasure =
     measures.splice(measureIndex, 1);
   };
 
-export const duplicateMeasure =
-  (): MeasureDelegate => (measures, measureIndex) => {
-    const newMeasure = deepCopy(measures[measureIndex]);
-    measures.splice(measureIndex, 0, newMeasure);
+export const duplicateMeasures =
+  (measureIndcies: number[]): MeasureDelegate =>
+  (measures, _) => {
+    if (!measureIndcies.length) return;
+    const newMeasures = measureIndcies.map((index) =>
+      deepCopy(measures[index])
+    );
+    measures.splice(measureIndcies[0], 0, ...newMeasures);
   };
 
 export const clearMeasure = (): MeasureDelegate => (measures, measureIndex) => {

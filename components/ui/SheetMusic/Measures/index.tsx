@@ -11,15 +11,42 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
   const music = useMusic();
   const [bpm, setBPM] = useState(102);
   const [editMeasureIndex, setMeasureEditIndex] = useState(-1);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedMeasures, setSelectedMeasures] = useState<{
+    [measure: number]: boolean;
+  }>({});
   const { getModalProps, showModal, handleModal } = useAnimateModal(300);
   const onMeasureClick = (measureIndex: number) => {
-    setMeasureEditIndex(measureIndex);
-    handleModal();
+    if (isEditMode) {
+      setSelectedMeasures((prevState) => ({
+        ...prevState,
+        [measureIndex]: !prevState[measureIndex],
+      }));
+    } else {
+      setMeasureEditIndex(measureIndex);
+      handleModal();
+    }
+  };
+
+  const toggleEditMode = () => {
+    setIsEditMode((prevState) => !prevState);
+    if (isEditMode) setSelectedMeasures({});
   };
   return (
     <>
+      <button onClick={toggleEditMode}>
+        {isEditMode ? "Leave Edit Mode" : "Edit Mode"}
+      </button>
       <button onClick={music.onAddMeasure}>Add</button>
       <button onClick={music.onPlay.bind(null, 16, bpm)}>Play</button>
+      <button
+        onClick={music.onDuplicateMeasures.bind(
+          null,
+          Object.keys(selectedMeasures)
+        )}
+      >
+        Duplicate
+      </button>
       <div>
         <label>BPM: </label>
         <input
@@ -30,7 +57,11 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
         />
       </div>
       <div className={classes.music}>
-        <ViewMeasureList measuresPerLine={4} onMeasureClick={onMeasureClick} />
+        <ViewMeasureList
+          measuresPerLine={4}
+          onMeasureClick={onMeasureClick}
+          selectedMeasures={selectedMeasures}
+        />
       </div>
       {showModal && (
         <EditMeasureModal
@@ -40,37 +71,6 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
       )}
     </>
   );
-
-  // return (
-  //   <>
-  //     <button onClick={measureInfo.onPlay.bind(null, 16, 100)}>Play!</button>
-  //     <button onClick={measureInfo.onAddMeasure}>Add A Measure!</button>
-  //     <ul className={classes.measures}>
-  //       {measureInfo.measures.map((measure, i) => {
-  //         return (
-  //           <Measure
-  //             unitsPerMeasure={16}
-  //             notes={measure[0]}
-  //             occupiedUnits={measure[1]}
-  //             measureNumber={i + 1}
-  //             onNoteDrop={measureInfo.onNoteDrop.bind(null, i)}
-  //             onNoteClick={measureInfo.onNoteClick.bind(null, i)}
-  //             onDeleteMeasure={measureInfo.onDeleteMeasure.bind(null, i)}
-  //             onClearMeasure={measureInfo.onClearMeasure.bind(null, i)}
-  //             onDuplicateMeasure={measureInfo.onDuplicateMeasure.bind(null, i)}
-  //           />
-  //         );
-  //       })}
-  //     </ul>
-  //   </>
-  // );
 };
 
 export default Measures;
-
-// notes={{
-//   "0": {
-//     "0": { val: 2, name: "eighth" },
-//     "2": { val: 2, name: "eighth" },
-//   },
-// }}

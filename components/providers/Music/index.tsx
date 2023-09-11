@@ -11,7 +11,7 @@ import {
   clearMeasure,
   deleteMeasure,
   deleteNote,
-  duplicateMeasure,
+  duplicateMeasures,
   moveMeasure,
 } from "@_providers/Music/delegates";
 import { MeasureNotes, Note, OccupiedUnits } from "@_types/music";
@@ -65,8 +65,8 @@ const MusicProvider: FunctionComponent<MusicProviderProps> = ({ children }) => {
     dispatch({ measureIndex, delegate: deleteMeasure() });
   };
 
-  const onDuplicateMeasure = (measureIndex: number) => {
-    dispatch({ measureIndex, delegate: duplicateMeasure() });
+  const onDuplicateMeasures = (measureIndices: number[]) => {
+    dispatch({ measureIndex: -1, delegate: duplicateMeasures(measureIndices) });
   };
 
   const onClearMeasure = (measureIndex: number) => {
@@ -93,7 +93,7 @@ const MusicProvider: FunctionComponent<MusicProviderProps> = ({ children }) => {
         onNoteClick,
         onAddMeasure,
         onDeleteMeasure,
-        onDuplicateMeasure,
+        onDuplicateMeasures,
         onClearMeasure,
         onMoveMeasure,
         onPlay,

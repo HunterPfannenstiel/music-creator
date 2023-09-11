@@ -8,12 +8,14 @@ interface ViewMeasureProps {
   notes: MeasureNotes;
   unitsPerMeasure: number;
   width?: string;
+  isSelected?: boolean;
 }
 
 const ViewMeasure: FunctionComponent<ViewMeasureProps> = ({
   notes,
   unitsPerMeasure,
   width,
+  isSelected,
 }) => {
   const aboveLines: ReactNode[] = [];
   const ledgerLines: ReactNode[] = [];
@@ -46,7 +48,10 @@ const ViewMeasure: FunctionComponent<ViewMeasureProps> = ({
     }
   }
   return (
-    <div className={classes.measure} style={{ width }}>
+    <div
+      className={isSelected ? classes.selected : classes.measure}
+      style={{ width }}
+    >
       {aboveLines}
       <div className={classes.main_lines}>{ledgerLines}</div>
       {belowLines}

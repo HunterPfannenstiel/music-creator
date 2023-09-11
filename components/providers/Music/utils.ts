@@ -51,7 +51,7 @@ type MusicContext = {
   onNoteDrop: (measureIndex: number, note: Note) => void;
   onAddMeasure: () => void;
   onDeleteMeasure: (measureIndex: number) => void;
-  onDuplicateMeasure: (measureIndex: number) => void;
+  onDuplicateMeasures: (measureIndicies: number[]) => void;
   onClearMeasure: (measureIndex: number) => void;
   onMoveMeasure: (measureIndex: number, newIndex: number) => void;
   onPlay: (unitsPerMeasure: number, bpm: number) => void;
@@ -65,7 +65,7 @@ export const getMusicContext = (): MusicContext => {
     onNoteDrop: fn,
     onAddMeasure: fn,
     onDeleteMeasure: fn,
-    onDuplicateMeasure: fn,
+    onDuplicateMeasures: fn,
     onClearMeasure: fn,
     onMoveMeasure: fn,
     onPlay: fn,
