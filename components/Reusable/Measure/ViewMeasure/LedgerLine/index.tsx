@@ -1,8 +1,8 @@
 import { FunctionComponent, ReactNode } from "react";
 import { MeasureNote, MeasureNotes } from "@_types/music";
-import Unit from "components/Reusable/Measure/LedgerLine/LedgerUnit/Unit";
 import { noteMapping } from "@_utils/notes";
-import LedgerConatiner from "components/Reusable/Measure/LedgerContainer";
+import Unit from "../../Unit";
+import LedgerConatiner from "../../LedgerContainer";
 
 interface LedgerLineProps {
   measureNotes: MeasureNotes;
@@ -19,7 +19,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   const spaceNotes = measureNotes[lineNumber + 1];
 
   const unitWidth = 100 / unitsPerMeasure + "%";
-  const outOfRange = lineNumber < 0 || lineNumber > 10;
+  const outOfRange = lineNumber < 0 || lineNumber > 8;
   const ledgerLine = getUnits(
     unitsPerMeasure,
     lineNotes,
@@ -87,6 +87,7 @@ const getUnits = (
           unitPercent={unitWidth}
           isSpace={isSpace}
           isOutOfRange={outOfRange}
+          containsNote
           lineThicknessScale={0.3}
         >
           <Note />

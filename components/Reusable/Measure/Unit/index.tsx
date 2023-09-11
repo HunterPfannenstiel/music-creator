@@ -1,15 +1,21 @@
-import { CSSProperties, FunctionComponent, ReactNode } from "react";
+import {
+  CSSProperties,
+  ComponentPropsWithRef,
+  FunctionComponent,
+  ReactNode,
+} from "react";
 import classes from "./index.module.css";
 import { concatClassNames } from "@_utils/index";
 
-interface UnitProps {
+interface UnitProps extends ComponentPropsWithRef<"li"> {
   length: number;
   unitPercent: string;
   isSpace: boolean;
   isOutOfRange: boolean;
-  children?: ReactNode;
+  containsNote?: boolean;
   className?: string;
   lineThicknessScale?: number;
+  showOutline?: boolean;
 }
 
 const Unit: FunctionComponent<UnitProps> = ({
@@ -17,15 +23,19 @@ const Unit: FunctionComponent<UnitProps> = ({
   unitPercent,
   isSpace,
   isOutOfRange,
+  containsNote,
   children,
   className,
   lineThicknessScale = 1,
+  showOutline,
+  ...restProps
 }) => {
   return (
     <li
       className={concatClassNames(
         isSpace ? classes.space : classes.line,
         isOutOfRange ? classes.light : undefined,
+        showOutline ? classes.outline : undefined,
         className
       )}
       style={
@@ -35,8 +45,9 @@ const Unit: FunctionComponent<UnitProps> = ({
           "--line-scale": lineThicknessScale,
         } as CSSProperties
       }
+      {...restProps}
     >
-      {children && <div className={classes.note}>{children}</div>}
+      {containsNote ? <div className={classes.note}>{children}</div> : children}
     </li>
   );
 };

@@ -1,9 +1,11 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import classes from "./index.module.css";
 import { useMusic } from "@_providers/Music";
 import Modal from "../Modal";
 import { ModalProps } from "@_hooks/useAnimateModal";
-import Measure from "../Measure";
+
+import NoteSelection from "../Note/NoteSelection";
+import EditableMeasure from "../Measure/EditableMeasure";
 
 interface EditMeasureModalProps {
   modalProps: ModalProps;
@@ -16,19 +18,25 @@ const EditMeasureModal: FunctionComponent<EditMeasureModalProps> = ({
 }) => {
   const music = useMusic();
   const measure = music.measures[measureIndex];
+  const [showOutline, setShowOutline] = useState(true);
+
+  const outlineHandler = () => {
+    setShowOutline((prevState) => !prevState);
+  };
 
   return (
-    <Modal {...modalProps}>
-      <div className={classes.measure_container}>
-        <Measure
-          unitsPerMeasure={16}
-          notes={measure[0]}
-          occupiedUnits={measure[1]}
-          onNoteDrop={music.onNoteDrop.bind(null, measureIndex)}
-          onNoteClick={music.onNoteClick.bind(null, measureIndex)}
-          onClearMeasure={music.onClearMeasure.bind(null, measureIndex)}
-        />
-      </div>
+    <Modal {...modalProps} className={classes.measure_container}>
+      <NoteSelection smallestUnit={16} />
+      <button onClick={outlineHandler}>Toggle Outline</button>
+      <EditableMeasure
+        unitsPerMeasure={16}
+        notes={measure[0]}
+        occupiedUnits={measure[1]}
+        showOutline={showOutline}
+        onNoteDrop={music.onNoteDrop.bind(null, measureIndex)}
+        onNoteClick={music.onNoteClick.bind(null, measureIndex)}
+        onClearMeasure={music.onClearMeasure.bind(null, measureIndex)}
+      />
     </Modal>
   );
 };

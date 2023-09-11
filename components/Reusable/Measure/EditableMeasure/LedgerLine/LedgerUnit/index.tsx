@@ -1,11 +1,12 @@
 import { FunctionComponent, ReactNode } from "react";
 import classes from "./index.module.css";
-import DropContainer from "../../../DragDrop/DropContainer";
-import Unit from "./Unit";
+import Unit from "../../../Unit";
+import DropContainer from "components/Reusable/DragDrop/DropContainer";
 
 interface LedgerUnitProps {
   length: number;
   unitPercent: string;
+  showOutline: boolean;
   note?: ReactNode;
   containsNote?: boolean;
   isLedgerSpace: boolean;
@@ -17,6 +18,7 @@ interface LedgerUnitProps {
 const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
   length = 1,
   unitPercent,
+  showOutline,
   note,
   containsNote,
   isLedgerSpace,
@@ -26,21 +28,19 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
 }) => {
   if (!containsNote) {
     return (
-      <Unit
+      <DropContainer
+        dropHandler={(e) => {
+          console.log(e);
+          onNoteDrop?.call(null, e);
+        }}
+        dataName="note"
+        as={Unit}
         isSpace={isLedgerSpace}
         isOutOfRange={!!outOfRange}
         unitPercent={unitPercent}
         length={length}
-      >
-        <DropContainer
-          dropHandler={(e) => {
-            console.log(e);
-            onNoteDrop?.call(null, e);
-          }}
-          className={classes.drop_container}
-          dataName="note"
-        />
-      </Unit>
+        showOutline={showOutline}
+      />
     );
   } else
     return (
@@ -49,12 +49,11 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
         unitPercent={unitPercent}
         isOutOfRange={!!outOfRange}
         length={length}
+        containsNote={!!note}
+        onClick={onNoteClick}
+        showOutline={showOutline}
       >
-        {note && (
-          <div className={classes.note} onClick={onNoteClick}>
-            {note}
-          </div>
-        )}
+        {note}
       </Unit>
     );
 };

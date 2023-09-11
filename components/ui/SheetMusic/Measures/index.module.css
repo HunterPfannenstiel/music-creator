@@ -1,5 +1,7 @@
 .music {
-    width: 100%;
+    width: 75%;
+    padding-inline: 1rem;
+    margin-inline: auto;
 }
 
 .measures {

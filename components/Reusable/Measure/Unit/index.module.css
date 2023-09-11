@@ -5,12 +5,20 @@
     height: 0;
 }
 
+.space.outline {
+    outline: 1px solid gold;
+}
+
 .line {
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
     padding-top: calc((var(--unit-percent)/5) * var(--line-scale));
     background-color: black;
     height: 0;
+}
+
+.line.outline {
+    outline: 1px solid green;
 }
 
 .line.light {

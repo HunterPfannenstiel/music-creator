@@ -28,7 +28,7 @@ export const deleteNote =
   (lineNumber: number, startUnit: number): MeasureDelegate =>
   (measures, measureIndex) => {
     const [notes, occupiedunits] = measures[measureIndex];
-    delete notes[lineNumber][startUnit];
+    if (notes[lineNumber]) delete notes[lineNumber][startUnit];
     delete occupiedunits[startUnit];
   };
 

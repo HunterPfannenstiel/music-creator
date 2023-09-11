@@ -79,6 +79,7 @@ const MusicProvider: FunctionComponent<MusicProviderProps> = ({ children }) => {
 
   const onPlay = (unitsPerMeasure: number, bpm: number) => {
     const n: Note[] = [];
+    console.log(measures);
     measures.forEach((measure, i) => {
       n.push(...measureNotesToNotes(measure[0], i, 16));
     });

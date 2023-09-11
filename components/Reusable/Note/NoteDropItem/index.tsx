@@ -1,16 +1,16 @@
 import { ComponentPropsWithoutRef, FunctionComponent, ReactNode } from "react";
 import classes from "./index.module.css";
-import { concatClassNames } from "../../../utils";
-import DropItem from "../DragDrop/DropItem";
-import { MeasureNote } from "../../../types/music";
+import DropItem from "components/Reusable/DragDrop/DropItem";
+import { concatClassNames } from "@_utils/index";
+import { MeasureNote } from "@_types/music";
 
-export interface NoteProps extends ComponentPropsWithoutRef<"div"> {
+export interface NoteDropItemProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
   isSelected?: boolean;
   noteDetails: MeasureNote;
 }
 
-const Note: FunctionComponent<NoteProps> = ({
+const NoteDropItem: FunctionComponent<NoteDropItemProps> = ({
   children,
   className,
   isSelected,
@@ -33,4 +33,4 @@ const Note: FunctionComponent<NoteProps> = ({
   );
 };
 
-export default Note;
+export default NoteDropItem;

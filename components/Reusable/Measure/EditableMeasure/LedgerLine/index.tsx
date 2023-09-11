@@ -2,13 +2,14 @@ import { FunctionComponent, ReactNode } from "react";
 import { MeasureNote, MeasureNotes, Note, OccupiedUnits } from "@_types/music";
 import { noteMapping } from "@_utils/notes";
 import LedgerUnit from "./LedgerUnit";
-import LedgerConatiner from "../LedgerContainer";
+import LedgerConatiner from "../../LedgerContainer";
 
 interface LedgerLineProps {
   occupiedUnits: OccupiedUnits;
   measureNotes: MeasureNotes;
   unitsPerMeasure: number;
   lineNumber: number;
+  showOutline: boolean;
   onNoteDrop: (noteDetails: Note) => void;
   onNoteClick: (lineNumber: number, startUnit: number) => void;
 }
@@ -18,6 +19,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
   measureNotes,
   unitsPerMeasure,
   lineNumber,
+  showOutline,
   onNoteDrop,
   onNoteClick,
 }) => {
@@ -39,6 +41,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         true,
         i,
         unitWidth,
+        showOutline,
         SpaceNote ? <SpaceNote /> : undefined
       )
     );
@@ -51,6 +54,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         false,
         i,
         unitWidth,
+        showOutline,
         LedgerNote ? <LedgerNote /> : undefined
       )
     );
@@ -69,6 +73,7 @@ const getLedgerUnit = (
   isLedgerSpace: boolean,
   startUnit: number,
   unitWidth: number,
+  showOutline: boolean,
   note?: ReactNode
 ) => {
   let length = occupiedUnits[startUnit] || 1;
@@ -79,6 +84,7 @@ const getLedgerUnit = (
       isLedgerSpace={isLedgerSpace}
       length={length}
       note={note}
+      showOutline={showOutline}
       onNoteClick={() => {
         onNoteClick(lineNumber, startUnit);
       }}

@@ -2,11 +2,6 @@
  *--unit-percent is provided by a parent defined in a different file
 */
 
-.drop_container {
-    width: fit-content;
-    height: fit-content;
-}
-
 /* .space {
     position: relative;
     width: calc(var(--unit-percent) * var(--length));
