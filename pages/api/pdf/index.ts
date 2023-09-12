@@ -1,5 +1,4 @@
-import { createBlankDocument, createRectangle } from "@_utils/pdf";
-import { addTitle } from "@_utils/pdf/music";
+import { SheetMusic } from "custom-objects/SheetMusic";
 import { NextApiHandler } from "next";
 const handler: NextApiHandler = async (req, res) => {
   try {
@@ -8,9 +7,12 @@ const handler: NextApiHandler = async (req, res) => {
         "Content-Type": "application/pdf",
         "Content-Disposition": "inline",
       });
-      const doc = createBlankDocument(stream);
-      addTitle(doc, "Sir Duke");
-      doc.end();
+      const sheetMusic = new SheetMusic(stream);
+      sheetMusic.addHeading("Sir Duke", "Stevie Wonder", "107");
+      sheetMusic.addMeasure(0);
+      sheetMusic.addMeasure(1);
+      sheetMusic.addMeasure(4);
+      sheetMusic.finish();
     } else {
       return res.status(400).json({ message: "Invalid method" });
     }
