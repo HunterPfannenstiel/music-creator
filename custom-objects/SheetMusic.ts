@@ -3,21 +3,34 @@ import PDFDocument from "pdfkit";
 export class SheetMusic {
   doc: PDFKit.PDFDocument;
   font: string;
-  unitVal: number;
   measuresPerLine: number;
   contentY: number = 0;
+  unitWidth: number;
+  unitHeight: number;
+  standardMPL = 4; //Standard Measures Per Line
+  measureLineThickness: number;
+  measureWidth: number;
+  measureHeight: number;
+  linesPerMeasure = 9;
 
   constructor(
     stream: NodeJS.WritableStream,
-    unitVal = 6.25,
+    unitsPerMeasure = 16,
     measuresPerLine = 4,
+    measureLineThickness = 1,
     font = "Times-Roman"
   ) {
-    this.doc = new PDFDocument();
+    this.doc = new PDFDocument({ size: "A4" });
+    console.log(this.doc.page.margins);
     this.doc.pipe(stream);
     this.font = font;
-    this.unitVal = unitVal;
     this.measuresPerLine = measuresPerLine;
+    this.measureLineThickness = measureLineThickness;
+    const contentWidth = this.doc.page.width - 2 * this.doc.page.margins.left;
+    this.unitWidth = contentWidth / (measuresPerLine * unitsPerMeasure);
+    this.unitHeight = (this.unitWidth / 4) * measuresPerLine;
+    this.measureWidth = unitsPerMeasure * this.unitWidth;
+    this.measureHeight = 9 * this.unitHeight + 9 * measureLineThickness;
   }
   addHeading(title: string, artist: string, bpm: string) {
     this.doc.fontSize(24);
@@ -29,17 +42,38 @@ export class SheetMusic {
   }
 
   addMeasure(measureNumber: number) {
-    const measureLength = this.unitVal * 16;
-    const measureHeight = 5 * this.unitVal;
-    this.doc.lineWidth(1);
+    const margin = this.doc.page.margins.left;
+    const x =
+      (measureNumber % this.measuresPerLine) * this.measureWidth + margin;
+    const y =
+      this.contentY +
+      Math.floor(measureNumber / this.measuresPerLine) * this.measureHeight;
+    this.doc.lineWidth(this.measureLineThickness);
+    // this.doc.rect(x, y, this.measureWidth, this.measureHeight).stroke();
+    this.addMeasureLines(x, y);
+  }
+
+  private addMeasureLines(x: number, y: number) {
+    const top = 3 * this.measureLineThickness + 4 * this.unitHeight + y;
+    const lineGap = this.measureLineThickness + this.unitHeight;
+    let topOffset = top;
+    for (let i = 0; i < 5; i++) {
+      this.doc
+        .lineCap("butt")
+        .moveTo(x, topOffset)
+        .lineTo(x + this.measureWidth, topOffset)
+        .stroke();
+      topOffset += lineGap;
+    }
     this.doc
-      .rect(
-        (measureNumber % this.measuresPerLine) * measureLength,
-        this.contentY +
-          Math.floor(measureNumber / this.measuresPerLine) * measureHeight,
-        measureLength,
-        measureHeight
-      )
+      .lineCap("butt")
+      .moveTo(x, top)
+      .lineTo(x, topOffset - lineGap)
+      .stroke();
+    this.doc
+      .lineCap("butt")
+      .moveTo(x + this.measureWidth, top)
+      .lineTo(x + this.measureWidth, topOffset - lineGap)
       .stroke();
   }
 
