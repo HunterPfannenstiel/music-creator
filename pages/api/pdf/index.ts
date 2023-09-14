@@ -24,3 +24,5 @@ const handler: NextApiHandler = async (req, res) => {
   } catch (error: any) {}
 };
 export default handler;
+
+//store MeasureNotes[] in DB
