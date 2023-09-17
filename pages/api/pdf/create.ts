@@ -4,28 +4,28 @@ import { MeasureNotes, Note } from "@_types/music";
 import { SheetMusic } from "custom-objects/SheetMusic";
 const handler: NextApiHandler = async (req, res) => {
   try {
-    if (req.method === "GET") {
-      //   const measureNotes = req.body.notes as MeasureNotes[];
+    if (req.method === "POST") {
+      const { notes, title, artist, bpm } = req.body;
       const stream = res.writeHead(200, {
         "Content-Type": "application/pdf",
-        "Content-Disposition": "inline",
+        "Content-Disposition": "attachment; filename=music.pdf",
       });
-      const measureNotes: MeasureNotes[] = [
-        {
-          13: { 0: { name: "eighth", val: 2 }, 8: { name: "quarter", val: 4 } },
-        },
-        {
-          0: {
-            0: { name: "eighth", val: 1 },
-            1: { name: "eighth", val: 1 },
-            8: { name: "quarter", val: 4 },
-          },
-        },
-      ];
-      const notes = measureNotesToNotes(measureNotes);
+      // const measureNotes: MeasureNotes[] = [
+      //   {
+      //     13: { 0: { name: "eighth", val: 2 }, 8: { name: "quarter", val: 4 } },
+      //   },
+      //   {
+      //     0: {
+      //       0: { name: "eighth", val: 1 },
+      //       1: { name: "eighth", val: 1 },
+      //       8: { name: "quarter", val: 4 },
+      //     },
+      //   },
+      // ];
+      const n = measureNotesToNotes(notes);
       const music = new SheetMusic(stream);
-      music.addHeading("Blame it on the Jakeles", "Daniel Caesar", "83");
-      notes.forEach((noteGroup, i) => {
+      music.addHeading(title, artist, bpm);
+      n.forEach((noteGroup, i) => {
         music.addMeasure(i, noteGroup);
       });
       music.finish();

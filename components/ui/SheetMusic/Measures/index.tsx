@@ -4,6 +4,9 @@ import ViewMeasureList from "components/Reusable/Measure/ViewMeasure/ViewMeasure
 import { useMusic } from "@_providers/Music";
 import useAnimateModal from "@_hooks/useAnimateModal";
 import EditMeasureModal from "components/Reusable/EditMeasureModal";
+import { Music } from "custom-objects/client/Music";
+import Image from "next/image";
+import Link from "next/link";
 
 interface MeasuresProps {}
 
@@ -15,6 +18,7 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
   const [selectedMeasures, setSelectedMeasures] = useState<{
     [measure: number]: boolean;
   }>({});
+  const [url, setUrl] = useState("");
   const { getModalProps, showModal, handleModal } = useAnimateModal(300);
   const onMeasureClick = (measureIndex: number) => {
     if (isEditMode) {
@@ -26,6 +30,17 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
       setMeasureEditIndex(measureIndex);
       handleModal();
     }
+  };
+
+  const onCreatePDF = async () => {
+    const url = await Music.createPDF(
+      music.measures.map(([notes]) => notes),
+      "Blame it on the boogie",
+      "Michael Jackson",
+      bpm
+    );
+    console.log(url);
+    setUrl(url);
   };
 
   const toggleEditMode = () => {
@@ -56,6 +71,10 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
           value={bpm}
         />
       </div>
+      <button onClick={onCreatePDF}>PDF</button>
+      <Link href={url} target="_blank">
+        PDF
+      </Link>
       <div className={classes.music}>
         <ViewMeasureList
           measuresPerLine={4}

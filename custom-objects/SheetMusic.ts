@@ -23,7 +23,6 @@ export class SheetMusic {
     font = "Times-Roman"
   ) {
     this.doc = new PDFDocument({ size: "A4" });
-    console.log(this.doc.page.margins);
     this.doc.pipe(stream);
     this.font = font;
     this.measuresPerLine = measuresPerLine;
@@ -88,7 +87,7 @@ export class SheetMusic {
     const xVal = measureX + this.getNoteXOffset(note.x, note.val);
     const yVal = measureY + this.getNoteYOffset(note.y);
 
-    this.doc.circle(xVal, yVal, this.unitHeight / 2.4).stroke();
+    this.doc.circle(xVal, yVal, this.unitHeight / 2).stroke();
   }
 
   private getNoteXOffset(noteXVal: number, noteVal: number) {
@@ -96,11 +95,15 @@ export class SheetMusic {
   }
 
   private getNoteYOffset(noteYVal: number) {
-    const invert = 15 - noteYVal;
-    const numSpaces = Math.ceil(invert / 2);
-    const numLines = Math.floor(invert / 2);
-    let offset =
-      numSpaces * this.unitHeight + numLines * this.measureLineThickness;
+    const invert = 15 - noteYVal + 1;
+
+    // const numSpaces = Math.ceil(invert / 2);
+    // const numLines = Math.floor(invert / 2);
+    // console.log(noteYVal, { numSpaces, numLines });
+    // let offset =
+    //   numSpaces * this.unitHeight + numLines * this.measureLineThickness;
+    const offset =
+      invert * (this.unitHeight / 2 + this.measureLineThickness / 2);
     // offset +=
     //   invert % 2 === 0 ? this.measureLineThickness / 2 : this.unitHeight / 2;
     return offset;
