@@ -2,6 +2,7 @@ import { FunctionComponent, ReactNode } from "react";
 import classes from "./index.module.css";
 import Unit from "../../../Unit";
 import DropContainer from "components/Reusable/DragDrop/DropContainer";
+import NoteTooltip from "components/Reusable/Measure/NoteTooltip";
 
 interface LedgerUnitProps {
   length: number;
@@ -54,6 +55,7 @@ const LedgerUnit: FunctionComponent<LedgerUnitProps> = ({
         showOutline={showOutline}
       >
         {note}
+        {note && <NoteTooltip onAccidentalChange={console.log} />}
       </Unit>
     );
 };

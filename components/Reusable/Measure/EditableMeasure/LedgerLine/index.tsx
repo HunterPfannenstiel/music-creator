@@ -42,6 +42,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         i,
         unitWidth,
         showOutline,
+        unitsPerMeasure,
         SpaceNote ? <SpaceNote /> : undefined
       )
     );
@@ -55,6 +56,7 @@ const LedgerLine: FunctionComponent<LedgerLineProps> = ({
         i,
         unitWidth,
         showOutline,
+        unitsPerMeasure,
         LedgerNote ? <LedgerNote /> : undefined
       )
     );
@@ -74,6 +76,7 @@ const getLedgerUnit = (
   startUnit: number,
   unitWidth: number,
   showOutline: boolean,
+  unitsPerMeasure: number,
   note?: ReactNode
 ) => {
   let length = occupiedUnits[startUnit] || 1;
@@ -90,11 +93,21 @@ const getLedgerUnit = (
       }}
       containsNote={!!occupiedUnits[startUnit]}
       onNoteDrop={(noteInfo) => {
-        if (!occupiedUnits[startUnit]) {
-          const noteDetails = JSON.parse(noteInfo) as MeasureNote;
+        const noteDetails = JSON.parse(noteInfo) as MeasureNote;
+        if (
+          isValidDrop(startUnit, noteDetails.val, occupiedUnits) &&
+          startUnit + noteDetails.val <= unitsPerMeasure
+        ) {
           onNoteDrop({ ...noteDetails, x: startUnit, y: lineNumber });
         }
       }}
     />
   );
+};
+
+const isValidDrop = (x: number, val: number, occupiedUnits: OccupiedUnits) => {
+  for (let i = x; i < x + val; i++) {
+    if (occupiedUnits[i]) return false;
+  }
+  return true;
 };

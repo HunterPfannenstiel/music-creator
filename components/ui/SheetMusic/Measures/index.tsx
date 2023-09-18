@@ -7,6 +7,7 @@ import EditMeasureModal from "components/Reusable/EditMeasureModal";
 import { Music } from "custom-objects/client/Music";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@ui/Button";
 
 interface MeasuresProps {}
 
@@ -49,19 +50,19 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
   };
   return (
     <>
-      <button onClick={toggleEditMode}>
+      <Button onClick={toggleEditMode}>
         {isEditMode ? "Leave Edit Mode" : "Edit Mode"}
-      </button>
-      <button onClick={music.onAddMeasure}>Add</button>
-      <button onClick={music.onPlay.bind(null, 16, bpm)}>Play</button>
-      <button
+      </Button>
+      <Button onClick={music.onAddMeasure}>Add</Button>
+      <Button onClick={music.onPlay.bind(null, 16, bpm)}>Play</Button>
+      <Button
         onClick={music.onDuplicateMeasures.bind(
           null,
           Object.keys(selectedMeasures)
         )}
       >
         Duplicate
-      </button>
+      </Button>
       <div>
         <label>BPM: </label>
         <input
@@ -71,7 +72,7 @@ const Measures: FunctionComponent<MeasuresProps> = () => {
           value={bpm}
         />
       </div>
-      <button onClick={onCreatePDF}>PDF</button>
+      <Button onClick={onCreatePDF}>PDF</Button>
       <Link href={url} target="_blank">
         PDF
       </Link>
